@@ -31,3 +31,16 @@ class RequestUtilTest(TestCase):
         """Test get method with exception."""
         with self.assertRaises(WechatException):
             RequestUtil.get('')
+
+    def test_post_method(self):
+        """Test post method."""
+        result = RequestUtil.post(consts.WECHAT_ACCESS_TOKEN_URL, {})
+        self.assertEqual(result['errcode'], 40013)
+
+    def test_post_method_with_header(self):
+        """Test post method."""
+        result = RequestUtil.post(
+            consts.WECHAT_ACCESS_TOKEN_URL, {},
+            headers={'content_type': 'application/json'}
+        )
+        self.assertEqual(result['errcode'], 40013)

@@ -22,6 +22,17 @@ class RequestUtil(object):
             return retdata
 
     @staticmethod
+    def post(url, data, headers=None):
+        """Post method."""
+        if headers:
+            result = requests.post(url, data, headers)
+        else:
+            result = requests.post(url, data)
+        result.encoding = 'utf-8'
+
+        return result.json()
+
+    @staticmethod
     def get_retcode_msg(retcode):
         """Get wechat retcode msg."""
         return consts.RETCODE_DICT.get(str(retcode), '未知状态码')
