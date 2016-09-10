@@ -5,7 +5,7 @@ from unittest import TestCase
 import responses
 
 from wechatkit import consts
-from wechatkit.utils import RequestUtil
+from wechatkit.utils import RequestUtil, SignUtil
 from wechatkit.exceptions import WechatException
 
 
@@ -80,3 +80,29 @@ class RequestUtilTest(TestCase):
         req_data = RequestUtil.parse_xml(data)
         resp = RequestUtil.post_xml(uri, req_data)
         self.assertEqual(resp['name'], 'wechat')
+
+
+class SignUtilTest(TestCase):
+    """SignUtilTest test case."""
+
+    def setUp(self):
+        """Init setup."""
+
+    def tearDown(self):
+        """Tear down."""
+
+    def test_sign_with_key(self):
+        """Test sign with key."""
+        data = {
+            'name': 'wechat'
+        }
+        resp = SignUtil.sign(data, 'secret')
+        self.assertEqual(resp, '10B479F834276384C96A0F074A1A7AF8')
+
+    def test_sign_no_key(self):
+        """Test sign with no key."""
+        data = {
+            'name': 'wechat'
+        }
+        resp = SignUtil.sign(data)
+        self.assertEqual(resp, 'AF4E19A25809165AF8A6B3F763FA6F03')
