@@ -2,6 +2,8 @@
 """Wechatlib utils."""
 import requests
 
+from xmltodict import parse
+
 from wechatkit import consts
 from wechatkit.exceptions import WechatException
 
@@ -31,6 +33,28 @@ class RequestUtil(object):
         result.encoding = 'utf-8'
 
         return result.json()
+
+    @staticmethod
+    def parse_xml(source):
+        """Dict to xml."""
+        if not (isinstance(source, dict) and len(source)):
+            return None
+
+        xml_template = '<xml>'
+        for k in sorted(source):
+            value = source.get(k)
+            xml_template += ('<{0}><![CDATA[{1}]]></{0}>'.format(k, value))
+        xml_template += ('</xml>')
+
+        return xml_template
+
+    @staticmethod
+    def post_xml(url, data, cert=None):
+        """Post data is xml."""
+        result = requests.post(url, data=data.encode(), cert=cert)
+        result.encoding = 'utf-8'
+        result = dict(parse(result.text).get('xml'))
+        return result
 
     @staticmethod
     def get_retcode_msg(retcode):

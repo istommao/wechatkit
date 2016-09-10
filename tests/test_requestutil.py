@@ -1,7 +1,8 @@
 # coding: utf-8
 """Wechatkit tests."""
-
 from unittest import TestCase
+
+import responses
 
 from wechatkit import consts
 from wechatkit.utils import RequestUtil
@@ -44,3 +45,38 @@ class RequestUtilTest(TestCase):
             headers={'content_type': 'application/json'}
         )
         self.assertEqual(result['errcode'], 40013)
+
+    def test_parse_xml(self):
+        """Test dict to xml."""
+        data = {
+            'server': 'wechat',
+            'name': 'xxx'
+        }
+        result = RequestUtil.parse_xml(data)
+        self.assertEqual(
+            result,
+            ('<xml><name><![CDATA[xxx]]></name><server>'
+             '<![CDATA[wechat]]></server></xml>')
+        )
+
+    def test_parse_xml_none(self):
+        """Test dict is none."""
+        result = RequestUtil.parse_xml({})
+        self.assertIsNone(result)
+
+    @responses.activate
+    def test_post_xml(self):
+        """Test post xml data."""
+        uri = 'http://www.baidu.com'
+        responses.add(
+            responses.POST, uri, body='''<xml><name>wechat</name></xml>''',
+            status=200,
+            content_type='application/xml'
+        )
+        data = {
+            'server': 'wechat',
+            'name': 'xxx'
+        }
+        req_data = RequestUtil.parse_xml(data)
+        resp = RequestUtil.post_xml(uri, req_data)
+        self.assertEqual(resp['name'], 'wechat')
