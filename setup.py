@@ -3,6 +3,10 @@
 from setuptools import setup, find_packages
 
 INSTALL_REQUIRES = [
+    'requests>=2.11.1',
+    'xmltodict>=0.10.2',
+    'pytest',
+    'pytest-cov',
 ]
 
 VERSION = '0.0.1'
