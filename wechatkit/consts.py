@@ -4,6 +4,9 @@
 WECHAT_ACCESS_TOKEN_URL = ('https://api.weixin.qq.com/cgi-bin/token?'
                            'grant_type=client_credential&appid={}&secret={}')
 
+WECHAT_CALLBACKIP_URL = ('https://api.weixin.qq.com/cgi-bin/getcallbackip?'
+                         'access_token={}')
+
 RETCODE_DICT = {
     '-1': '系统繁忙，此时请开发者稍候再试',
     '0': '请求成功',
