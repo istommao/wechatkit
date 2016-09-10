@@ -1,0 +1,17 @@
+coverage:
+  precision: 2
+  round: down
+  status:
+    patch:
+      default:
+        target: 80%
+    project:
+      default:
+        target: 80%
+
+comment:
+  layout: "header, diff, uncovered"
+  behavior: default
+
+codecov:
+  token: 14481597-1713-477b-a061-0682eff0611d
