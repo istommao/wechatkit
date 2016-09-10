@@ -14,6 +14,10 @@ To install wechatkit, simply:
 > pip install wechatkit
 
 
+# ChangeLog
+
+[changelog](changelog.md)
+
 # License
 
 MIT. See [LICENSE](https://github.com/istommao/wechatkit/blob/master/LICENSE) for more details.
