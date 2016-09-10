@@ -4,12 +4,10 @@ from setuptools import setup, find_packages
 
 INSTALL_REQUIRES = [
     'requests>=2.11.1',
-    'xmltodict>=0.10.2',
-    'pytest',
-    'pytest-cov',
+    'xmltodict>=0.10.2'
 ]
 
-VERSION = '0.0.1'
+VERSION = '0.0.2'
 
 setup(
     name='wechatkit',
