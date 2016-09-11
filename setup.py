@@ -8,7 +8,7 @@ INSTALL_REQUIRES = [
     'xmltodict>=0.10.2'
 ]
 
-VERSION = '0.0.3'
+VERSION = '0.0.5'
 
 
 with open(os.path.join(os.path.dirname(__file__), 'README.md')) as f:

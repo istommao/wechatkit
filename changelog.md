@@ -1,3 +1,8 @@
+# version 0.0.5
+`2016-09-11`
+
+- Add wechat get web token function
+
 # version 0.0.4
 `2016-09-11`
 

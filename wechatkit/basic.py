@@ -31,3 +31,16 @@ class WechatBasicAPI(object):
             raise WechatException(result.get('errmsg'))
 
         return result
+
+    @staticmethod
+    def get_web_access_token(appid, appsecret, code):
+        """Get web access toekn differ from base access token."""
+        urlfmt = '{}appid={}&secret={}&code={}&grant_type=authorization_code'
+        url = urlfmt.format(consts.WECHAT_WEB_AUTH_ACCESS_TOKEN_URI,
+                            appid, appsecret, code)
+        result = RequestUtil.get(url)
+
+        if result.get('errmsg'):
+            raise WechatException(result.get('errmsg'))
+
+        return result

@@ -15,6 +15,9 @@ WECHAT_USER_INFO_URL = ('{}/user/info?access_token={{}}'
 WECHAT_USER_LIST_URL = ('{}/user/get?'
                         'access_token={{}}'.format(WECHAT_BASE_URL))
 
+WECHAT_WEB_AUTH_ACCESS_TOKEN_URI = ('https://api.weixin.qq.com/sns/oauth2/'
+                                    'access_token?')
+
 RETCODE_DICT = {
     '-1': '系统繁忙，此时请开发者稍候再试',
     '0': '请求成功',

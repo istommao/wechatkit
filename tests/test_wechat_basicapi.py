@@ -45,3 +45,29 @@ class WechatBasicAPITest(TestCase):
         with self.assertRaises(WechatException):
             access_token = 'access_token'
             WechatBasicAPI.get_callbackip(access_token)
+
+    @patch('wechatkit.utils.RequestUtil.get')
+    def test_get_web_token(self, mock_data):
+        """Test get web access token success."""
+        mock_data.return_value = {
+            "access_token": "ACCESS_TOKEN",
+            "expires_in": 7200,
+            "refresh_token": "REFRESH_TOKEN",
+            "openid": "OPENID",
+            "scope": "SCOPE"
+        }
+        result = WechatBasicAPI.get_web_access_token(
+            self.appid, self.appsecret, 'code')
+
+        self.assertEqual(result.get('access_token'), 'ACCESS_TOKEN')
+
+    @patch('wechatkit.utils.RequestUtil.get')
+    def test_get_token_failure(self, mock_data):
+        """Test get web access token failure."""
+        mock_data.return_value = {
+            "errcode": 40029,
+            "errmsg": "invalid code"
+        }
+        with self.assertRaises(WechatException):
+            WechatBasicAPI.get_web_access_token(self.appid, self.appsecret,
+                                                'code')
