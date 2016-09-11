@@ -4,7 +4,7 @@
 from unittest import TestCase
 from unittest.mock import patch
 
-from wechatkit.utils import WechatBasicAPI
+from wechatkit.basic import WechatBasicAPI
 from wechatkit.exceptions import WechatException
 
 

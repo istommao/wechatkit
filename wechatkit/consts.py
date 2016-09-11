@@ -1,11 +1,19 @@
 # coding: utf-8
 """Wechatkit consts."""
 
-WECHAT_ACCESS_TOKEN_URL = ('https://api.weixin.qq.com/cgi-bin/token?'
-                           'grant_type=client_credential&appid={}&secret={}')
+WECHAT_BASE_URL = 'https://api.weixin.qq.com/cgi-bin'
 
-WECHAT_CALLBACKIP_URL = ('https://api.weixin.qq.com/cgi-bin/getcallbackip?'
-                         'access_token={}')
+WECHAT_ACCESS_TOKEN_URL = ('{}/token?grant_type=client_credential'
+                           '&appid={{}}&secret={{}}'.format(WECHAT_BASE_URL))
+
+WECHAT_CALLBACKIP_URL = ('{}/getcallbackip?'
+                         'access_token={{}}'.format(WECHAT_BASE_URL))
+
+WECHAT_USER_INFO_URL = ('{}/user/info?access_token={{}}'
+                        '&openid={{}}&lang={{}}'.format(WECHAT_BASE_URL))
+
+WECHAT_USER_LIST_URL = ('{}/user/get?'
+                        'access_token={{}}'.format(WECHAT_BASE_URL))
 
 RETCODE_DICT = {
     '-1': '系统繁忙，此时请开发者稍候再试',

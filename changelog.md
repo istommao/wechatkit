@@ -1,3 +1,8 @@
+# version 0.0.4
+`2016-09-11`
+
+- Add wechat user api
+
 # version 0.0.3
 `2016-09-10`
 

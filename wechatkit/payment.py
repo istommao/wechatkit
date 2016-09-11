@@ -96,7 +96,6 @@ class WechatPay(object):
 
         xml = RequestUtil.parse_xml(order_data)
         resp = RequestUtil.post_xml(uri, xml, cert)
-        print(resp)
 
         if resp.get('return_code') != 'SUCCESS':
             raise WechatException(resp.get('return_msg'))
