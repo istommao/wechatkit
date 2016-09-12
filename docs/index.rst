@@ -10,8 +10,8 @@ Contents:
 
 .. toctree::
 
-   user/index
    basic/index
+   user/index
 
 
 Indices and tables

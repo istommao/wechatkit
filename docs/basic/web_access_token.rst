@@ -4,5 +4,5 @@
 
 .. code-block:: python
 
-    WechatBasicAPI.get_web_access_token(access_token)
+    WechatBasicAPI.get_web_access_token(appid, appsecret, code)
 
