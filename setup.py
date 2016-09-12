@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """setup.py."""
-import os
+
 from setuptools import setup, find_packages
 
 INSTALL_REQUIRES = [
@@ -8,18 +8,15 @@ INSTALL_REQUIRES = [
     'xmltodict>=0.10.2'
 ]
 
-VERSION = '0.0.5'
+VERSION = '0.0.6'
 
-
-with open(os.path.join(os.path.dirname(__file__), 'README.md')) as f:
-    README = f.read()
-
+LONG_DESCRIPTION = 'wechatkit is a common wechat api component.'
 
 setup(
     name='wechatkit',
     version=VERSION,
     description='wechatkit is a common wechat api component.',
-    long_description=README,
+    long_description=LONG_DESCRIPTION,
     author='silence',
     author_email='istommao@gmail.com',
     install_requires=INSTALL_REQUIRES,
