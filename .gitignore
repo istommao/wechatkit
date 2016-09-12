@@ -91,3 +91,5 @@ ENV/
 # vscode env
 
 .vscode
+
+.DS_Store

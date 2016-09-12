@@ -1,8 +1,0 @@
-site_name: Wechatkit documents
-
-pages:
-- 介绍: index.md
-- 基础接口: basic.md
-- 用户接口: user.md
-
-theme: readthedocs
