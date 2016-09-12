@@ -9,9 +9,9 @@ Welcome to wechatkit's documentation!
 Contents:
 
 .. toctree::
-   :maxdepth: 2
 
-   docs/index
+   user/index
+   basic/index
 
 
 Indices and tables
