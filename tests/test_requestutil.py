@@ -81,6 +81,21 @@ class RequestUtilTest(TestCase):
         resp = RequestUtil.post_xml(uri, req_data)
         self.assertEqual(resp['name'], 'wechat')
 
+    @responses.activate
+    def test_upload(self):
+        """Test upload media."""
+        uri = 'http://www.baidu.com'
+        responses.add(
+            responses.POST, uri, body='''{"type": "image", "media_id": "MEDIA_ID",
+                                         "created_at":123456789}''',
+            status=200,
+            content_type='application/json'
+        )
+
+        resp = RequestUtil.upload(uri, {}, './tests/test_requestutil.py')
+
+        self.assertEqual(resp['type'], 'image')
+
 
 class SignUtilTest(TestCase):
     """SignUtilTest test case."""
@@ -104,5 +119,12 @@ class SignUtilTest(TestCase):
         data = {
             'name': 'wechat'
         }
+        resp = SignUtil.sign(data)
+        self.assertEqual(resp, 'AF4E19A25809165AF8A6B3F763FA6F03')
+
+    def test_get_origin_str(self):
+        """Get sign origin str."""
+        data = {'name': 'wechat', 'sign': 'test sign'}
+
         resp = SignUtil.sign(data)
         self.assertEqual(resp, 'AF4E19A25809165AF8A6B3F763FA6F03')

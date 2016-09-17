@@ -58,6 +58,14 @@ class RequestUtil(object):
         return result
 
     @staticmethod
+    def upload(url, data, media_path):
+        """Upload a media."""
+        with open(media_path) as entity:
+            result = requests.post(url, data=data, files={'media': entity})
+            result.encoding = 'utf-8'
+            return result.json()
+
+    @staticmethod
     def get_retcode_msg(retcode):
         """Get wechat retcode msg."""
         return consts.RETCODE_DICT.get(str(retcode), '未知状态码')
