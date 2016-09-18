@@ -1,3 +1,9 @@
+# version 0.0.7
+`2016-09-18`
+
+- Add wechat resource manage feature (upload file)
+
+
 # version 0.0.5
 `2016-09-11`
 

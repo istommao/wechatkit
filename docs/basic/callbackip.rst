@@ -3,4 +3,5 @@
 
 .. code-block:: python
 
+    from wechatkit.basic import WechatBasicAPI
     WechatBasicAPI.get_callbackip(access_token)

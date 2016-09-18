@@ -3,4 +3,5 @@
 
 .. code-block:: python
 
+    from wechatkit.user import WechatUserAPI
     WechatUserAPI.get_user_list(access_token, next_openid=None)
