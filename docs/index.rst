@@ -12,6 +12,7 @@ Contents:
 
    basic/index
    user/index
+   resource/index
 
 
 Indices and tables
