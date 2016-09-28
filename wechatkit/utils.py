@@ -36,7 +36,7 @@ class RequestUtil(object):
         return result.json()
 
     @staticmethod
-    def parse_xml(source):
+    def generate_xml(source):
         """Dict to xml."""
         if not (isinstance(source, dict) and len(source)):
             return None

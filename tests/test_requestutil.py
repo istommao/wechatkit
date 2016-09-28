@@ -46,22 +46,22 @@ class RequestUtilTest(TestCase):
         )
         self.assertEqual(result['errcode'], 40013)
 
-    def test_parse_xml(self):
+    def test_generate_xml(self):
         """Test dict to xml."""
         data = {
             'server': 'wechat',
             'name': 'xxx'
         }
-        result = RequestUtil.parse_xml(data)
+        result = RequestUtil.generate_xml(data)
         self.assertEqual(
             result,
             ('<xml><name><![CDATA[xxx]]></name><server>'
              '<![CDATA[wechat]]></server></xml>')
         )
 
-    def test_parse_xml_none(self):
+    def test_generate_xml_none(self):
         """Test dict is none."""
-        result = RequestUtil.parse_xml({})
+        result = RequestUtil.generate_xml({})
         self.assertIsNone(result)
 
     @responses.activate
@@ -77,7 +77,7 @@ class RequestUtilTest(TestCase):
             'server': 'wechat',
             'name': 'xxx'
         }
-        req_data = RequestUtil.parse_xml(data)
+        req_data = RequestUtil.generate_xml(data)
         resp = RequestUtil.post_xml(uri, req_data)
         self.assertEqual(resp['name'], 'wechat')
 

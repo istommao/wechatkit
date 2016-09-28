@@ -94,7 +94,7 @@ class WechatPay(object):
         sign_str = SignUtil.sign(order_data, self.key)
         order_data['sign'] = sign_str
 
-        xml = RequestUtil.parse_xml(order_data)
+        xml = RequestUtil.generate_xml(order_data)
         resp = RequestUtil.post_xml(uri, xml, cert)
 
         if resp.get('return_code') != 'SUCCESS':
