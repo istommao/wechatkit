@@ -50,7 +50,7 @@ class MenuUtil(object):
 
 class AbstractButton(object):
     """ Abstract Button for wechat custom menu. """
-    type = None
+    ab_type = None
     name = None
 
     def __init__(self, **kwargs):
@@ -62,6 +62,11 @@ class AbstractButton(object):
     def json(self):
         """ convert button to json. """
         result = self.__dict__.copy()
+
+        if 'ab_type' in result:
+            temp = result.pop('ab_type')
+            result['type'] = temp
+
         if 'buttons' in result:
             result.pop('buttons')
 
@@ -75,6 +80,9 @@ class AbstractButton(object):
     def parse(self, data):
         """ parse json to button. """
         for key, value in data.items():
+            if key == 'type':
+                key = 'ab_type'
+
             if hasattr(self, key):
                 if not value:
                     raise WechatException('Not empty for `{}`'.format(key))
