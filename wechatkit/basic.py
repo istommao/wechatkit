@@ -1,8 +1,8 @@
 """wechatkit basic"""
 
-from wechatkit import consts
-from wechatkit.utils import RequestUtil
-from wechatkit.exceptions import WechatException
+from . import consts
+from .utils import RequestUtil
+from .exceptions import WechatException
 
 
 class WechatBasicAPI(object):

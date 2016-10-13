@@ -1,7 +1,7 @@
 """Resource manage module."""
 import os
 
-from wechatkit.utils import RequestUtil
+from .utils import RequestUtil
 
 
 class ResourceAPI(object):

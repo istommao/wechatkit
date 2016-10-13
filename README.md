@@ -15,6 +15,19 @@ To install wechatkit, simply:
 
 > pip install wechatkit
 
+# Usage
+
+```python
+from wechatkit import WechatAPI
+
+WechatAPI.get_access_token(appid, appsecret)
+WechatAPI.get_web_access_token(appid, appsecret)
+
+WechatAPI.get_callbackip(access_token)
+
+WechatAPI.get_user_info(access_token, openid)
+WechatAPI.get_user_list(access_token, openid)
+```
 
 # ChangeLog
 

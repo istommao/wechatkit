@@ -1,3 +1,9 @@
+# version 0.0.9
+`2016-10-13`
+
+- Modify wechat package structure
+- Add api file and WechatAPI class
+
 # version 0.0.8
 `2016-10-13`
 

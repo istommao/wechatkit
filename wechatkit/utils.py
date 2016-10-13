@@ -5,8 +5,8 @@ import requests
 
 from xmltodict import parse
 
-from wechatkit import consts
-from wechatkit.exceptions import WechatException
+from . import consts
+from .exceptions import WechatException
 
 
 class RequestUtil(object):

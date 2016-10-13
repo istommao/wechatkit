@@ -10,6 +10,7 @@ Contents:
 
 .. toctree::
 
+   api/index
    basic/index
    user/index
    resource/index

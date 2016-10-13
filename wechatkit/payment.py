@@ -2,8 +2,8 @@
 
 import uuid
 
-from wechatkit.exceptions import WechatException
-from wechatkit.utils import SignUtil, RequestUtil
+from .exceptions import WechatException
+from .utils import SignUtil, RequestUtil
 
 
 class WechatPay(object):

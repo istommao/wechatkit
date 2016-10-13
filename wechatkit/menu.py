@@ -1,7 +1,7 @@
 """Wechat custom Menu module."""
 
-from wechatkit.utils import RequestUtil
-from wechatkit.exceptions import WechatException
+from .utils import RequestUtil
+from .exceptions import WechatException
 
 
 class MenuUtil(object):
