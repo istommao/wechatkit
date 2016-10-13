@@ -1,3 +1,9 @@
+# version 0.0.8
+`2016-10-13`
+
+- Modify wechat exception return message
+
+
 # version 0.0.7
 `2016-09-18`
 

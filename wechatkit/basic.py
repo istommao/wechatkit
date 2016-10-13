@@ -16,7 +16,8 @@ class WechatBasicAPI(object):
         result = RequestUtil.get(url)
 
         if result.get('errmsg'):
-            raise WechatException(result.get('errmsg'))
+            errmsg = RequestUtil.get_retcode_msg(result.get('errcode'))
+            raise WechatException(errmsg)
 
         return result
 
@@ -28,7 +29,8 @@ class WechatBasicAPI(object):
         result = RequestUtil.get(url)
 
         if result.get('errmsg'):
-            raise WechatException(result.get('errmsg'))
+            errmsg = RequestUtil.get_retcode_msg(result.get('errcode'))
+            raise WechatException(errmsg)
 
         return result
 
@@ -41,6 +43,7 @@ class WechatBasicAPI(object):
         result = RequestUtil.get(url)
 
         if result.get('errmsg'):
-            raise WechatException(result.get('errmsg'))
+            errmsg = RequestUtil.get_retcode_msg(result.get('errcode'))
+            raise WechatException(errmsg)
 
         return result
