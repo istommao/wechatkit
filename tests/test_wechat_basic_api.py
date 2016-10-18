@@ -27,8 +27,8 @@ class WechatBasicAPITest(TestCase):
         self.assertEqual(resp.get('access_token'), 'access_token')
 
     def test_get_access_token_failure(self):
-        with self.assertRaises(WechatException):
-            WechatBasicAPI.get_access_token(self.appid, self.appsecret)
+        result = WechatBasicAPI.get_access_token(self.appid, self.appsecret)
+        self.assertIn('errmsg', result)
 
     @patch('wechatkit.utils.RequestUtil.get')
     def test_get_callbackip(self, mock_data):
@@ -42,9 +42,10 @@ class WechatBasicAPITest(TestCase):
         self.assertEqual(len(resp['ip_list']), 2)
 
     def test_get_callbackip_failure(self):
-        with self.assertRaises(WechatException):
-            access_token = 'access_token'
-            WechatBasicAPI.get_callbackip(access_token)
+        """Test."""
+        access_token = 'access_token'
+        result = WechatBasicAPI.get_callbackip(access_token)
+        self.assertIn('errmsg', result)
 
     @patch('wechatkit.utils.RequestUtil.get')
     def test_get_web_token(self, mock_data):
@@ -68,6 +69,7 @@ class WechatBasicAPITest(TestCase):
             "errcode": 40029,
             "errmsg": "invalid code"
         }
-        with self.assertRaises(WechatException):
-            WechatBasicAPI.get_web_access_token(self.appid, self.appsecret,
-                                                'code')
+        result = WechatBasicAPI.get_web_access_token(self.appid,
+                                                     self.appsecret, 'code')
+
+        self.assertIn('errmsg', result)

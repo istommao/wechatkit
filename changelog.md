@@ -1,3 +1,8 @@
+# version 0.0.11
+`2016-10-18`
+
+- Modify wechat exception use return result replace raise exception.
+
 # version 0.0.9
 `2016-10-13`
 

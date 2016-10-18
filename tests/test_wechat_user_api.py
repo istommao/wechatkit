@@ -16,9 +16,9 @@ class WechatUserAPITest(TestCase):
     def test_get_user_info_failure(self):
         """Test get user info failure"""
 
-        with self.assertRaises(WechatException):
-            access_token, openid = 'access_token', 'openid'
-            WechatUserAPI.get_user_basic_info(access_token, openid)
+        access_token, openid = 'access_token', 'openid'
+        result = WechatUserAPI.get_user_basic_info(access_token, openid)
+        self.assertIn('errmsg', result)
 
     @patch('wechatkit.utils.RequestUtil.get')
     def test_get_user_basic_info(self, mock_data):
@@ -120,6 +120,6 @@ class WechatUserAPITest(TestCase):
     def test_get_user_list_failure(self):
         """Test get user list failure"""
 
-        with self.assertRaises(WechatException):
-            access_token = 'access_token'
-            WechatUserAPI.get_user_list(access_token)
+        access_token = 'access_token'
+        result = WechatUserAPI.get_user_list(access_token)
+        self.assertIn('errmsg', result)

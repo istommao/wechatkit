@@ -2,7 +2,6 @@
 
 from . import consts
 from .utils import RequestUtil
-from .exceptions import WechatException
 
 
 class WechatBasicAPI(object):
@@ -17,7 +16,7 @@ class WechatBasicAPI(object):
 
         if result.get('errmsg'):
             errmsg = RequestUtil.get_retcode_msg(result.get('errcode'))
-            raise WechatException(errmsg)
+            result['errmsg'] = errmsg
 
         return result
 
@@ -30,7 +29,7 @@ class WechatBasicAPI(object):
 
         if result.get('errmsg'):
             errmsg = RequestUtil.get_retcode_msg(result.get('errcode'))
-            raise WechatException(errmsg)
+            result['errmsg'] = errmsg
 
         return result
 
@@ -44,6 +43,6 @@ class WechatBasicAPI(object):
 
         if result.get('errmsg'):
             errmsg = RequestUtil.get_retcode_msg(result.get('errcode'))
-            raise WechatException(errmsg)
+            result['errmsg'] = errmsg
 
         return result
