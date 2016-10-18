@@ -1,3 +1,8 @@
+# version 0.0.12
+`2016-10-18`
+
+- Modify wechat exception use add raise_exception param
+
 # version 0.0.11
 `2016-10-18`
 

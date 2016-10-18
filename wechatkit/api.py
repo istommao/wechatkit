@@ -1,33 +1,51 @@
 """Wechatkit api."""
 from .basic import WechatBasicAPI
 from .user import WechatUserAPI
+from .exceptions import WechatException
 
 
 class WechatAPI(object):
     """WechatAPI."""
 
     @staticmethod
-    def get_callbackip(access_token):
+    def _check_exception(result, raise_exception=False):
+        if raise_exception and 'errmsg' in result:
+            raise WechatException(result['errmsg'])
+
+    @staticmethod
+    def get_callbackip(access_token, raise_exception=False):
         """Get callbackip."""
-        return WechatBasicAPI.get_callbackip(access_token)
+        result = WechatBasicAPI.get_callbackip(access_token)
+        WechatAPI._check_exception(result, raise_exception=raise_exception)
+        return result
 
     @staticmethod
-    def get_web_access_token(appid, appsecret, code):
+    def get_web_access_token(appid, appsecret, code, raise_exception=False):
         """Get web access token."""
-        return WechatBasicAPI.get_web_access_token(appid, appsecret, code)
+        result = WechatBasicAPI.get_web_access_token(appid, appsecret, code)
+        WechatAPI._check_exception(result, raise_exception=raise_exception)
+        return result
 
     @staticmethod
-    def get_access_token(appid, appsecret):
+    def get_access_token(appid, appsecret, raise_exception=False):
         """Get access token."""
-        return WechatBasicAPI.get_access_token(appid, appsecret)
+        result = WechatBasicAPI.get_access_token(appid, appsecret)
+        WechatAPI._check_exception(result, raise_exception=raise_exception)
+
+        return result
 
     @staticmethod
-    def get_user_info(access_token, openid):
+    def get_user_info(access_token, openid, raise_exception=False):
         """Get user info."""
-        return WechatUserAPI.get_user_basic_info(access_token, openid)
+        result = WechatUserAPI.get_user_basic_info(access_token, openid)
+        WechatAPI._check_exception(result, raise_exception=raise_exception)
+        return result
 
     @staticmethod
-    def get_user_list(access_token, next_openid=None):
+    def get_user_list(access_token, next_openid=None, raise_exception=False):
         """Get user list."""
-        return WechatUserAPI.get_user_list(access_token,
-                                           next_openid=next_openid)
+        result = WechatUserAPI.get_user_list(access_token,
+                                             next_openid=next_openid)
+        WechatAPI._check_exception(result, raise_exception=raise_exception)
+
+        return result
