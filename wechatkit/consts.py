@@ -1,22 +1,32 @@
 # coding: utf-8
 """Wechatkit consts."""
 
-WECHAT_BASE_URL = 'https://api.weixin.qq.com/cgi-bin'
+try:
+    from urllib.parse import urljoin
+except ImportError:
+    from urlparse import urljoin
 
-WECHAT_ACCESS_TOKEN_URL = ('{}/token?grant_type=client_credential'
-                           '&appid={{}}&secret={{}}'.format(WECHAT_BASE_URL))
+WECHAT_BASE_URL = 'https://api.weixin.qq.com/'
 
-WECHAT_CALLBACKIP_URL = ('{}/getcallbackip?'
-                         'access_token={{}}'.format(WECHAT_BASE_URL))
+WECHAT_ACCESS_TOKEN_URL = urljoin(
+    WECHAT_BASE_URL,
+    'cgi-bin/token?grant_type=client_credential&appid={appid}&secret={secret}'
+)
 
-WECHAT_USER_INFO_URL = ('{}/user/info?access_token={{}}'
-                        '&openid={{}}&lang={{}}'.format(WECHAT_BASE_URL))
+WECHAT_CALLBACKIP_URL = urljoin(
+    WECHAT_BASE_URL, 'cgi-bin/getcallbackip?access_token={access_token}'
+)
 
-WECHAT_USER_LIST_URL = ('{}/user/get?'
-                        'access_token={{}}'.format(WECHAT_BASE_URL))
+WECHAT_USER_INFO_URL = urljoin(
+    WECHAT_BASE_URL,
+    'cgi-bin/user/info?access_token={access_token}&openid={openid}&lang={lang}'
+)
 
-WECHAT_WEB_AUTH_ACCESS_TOKEN_URI = ('https://api.weixin.qq.com/sns/oauth2/'
-                                    'access_token?')
+WECHAT_USER_LIST_URL = urljoin(WECHAT_BASE_URL,
+                               'cgi-bin/user/get?access_token={access_token}')
+
+WECHAT_WEB_AUTH_ACCESS_TOKEN_URI = urljoin(WECHAT_BASE_URL,
+                                           'sns/oauth2/access_token?')
 
 RETCODE_DICT = {
     '-1': '系统繁忙，此时请开发者稍候再试',

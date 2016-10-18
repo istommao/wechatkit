@@ -9,9 +9,9 @@ class WechatBasicAPI(object):
     """Wechat basic api."""
 
     @staticmethod
-    def get_access_token(appid, appsecret):
+    def get_access_token(appid, secret):
         """Get access token from wechat."""
-        url = consts.WECHAT_ACCESS_TOKEN_URL.format(appid, appsecret)
+        url = consts.WECHAT_ACCESS_TOKEN_URL.format(appid=appid, secret=secret)
 
         result = RequestUtil.get(url)
 
@@ -24,7 +24,7 @@ class WechatBasicAPI(object):
     @staticmethod
     def get_callbackip(access_token):
         """Get wecaht callbackip."""
-        url = consts.WECHAT_CALLBACKIP_URL.format(access_token)
+        url = consts.WECHAT_CALLBACKIP_URL.format(access_token=access_token)
 
         result = RequestUtil.get(url)
 
