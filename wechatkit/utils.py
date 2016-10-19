@@ -6,7 +6,7 @@ import requests
 from xmltodict import parse
 
 from . import consts
-from .exceptions import WechatException
+from .exceptions import WechatException, WechatSignException
 
 
 class RequestUtil(object):
@@ -73,6 +73,19 @@ class RequestUtil(object):
 
 class SignUtil(object):
     """Sign util."""
+
+    @classmethod
+    def sha1_encrypt(cls, token, timestamp, nonce, encrypt=''):
+        """sha1 encrypt."""
+        try:
+            sortlist = [token, timestamp, nonce, encrypt]
+            sortlist.sort()
+            sha = hashlib.sha1()
+            sha.update((''.join(sortlist)).encode('utf-8'))
+        except Exception as error:
+            raise WechatSignException(error)
+        else:
+            return sha.hexdigest()
 
     @classmethod
     def sign(cls, source, key=None):

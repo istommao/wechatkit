@@ -3,7 +3,6 @@ from unittest import TestCase
 from unittest.mock import patch
 
 from wechatkit.api import WechatAPI
-from wechatkit.exceptions import WechatException
 
 
 class WechatAPITest(TestCase):
@@ -12,6 +11,16 @@ class WechatAPITest(TestCase):
     def setUp(self):
         self.appid = 'appid'
         self.appsecret = 'appsecret'
+
+    def test_sha1_encrypt(self):
+        """Test sha1 encrypt."""
+        token = 'test_token'
+        timestamp = '1461142505'
+        nonce = 'sdfklklasdwqieor'
+
+        result = WechatAPI.sha1_encrypt(token, timestamp, nonce)
+
+        self.assertEqual(result, '30eda1491ff3ec8b20489ac38af76dd64ad2a122')
 
     def test_get_user_info_failure(self):
         """Test get user info failure"""

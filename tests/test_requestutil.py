@@ -106,6 +106,16 @@ class SignUtilTest(TestCase):
     def tearDown(self):
         """Tear down."""
 
+    def test_sha1_encrypt(self):
+        """Test sha1 encrypt."""
+        token = 'test_token'
+        timestamp = '1461142505'
+        nonce = 'sdfklklasdwqieor'
+
+        result = SignUtil.sha1_encrypt(token, timestamp, nonce)
+
+        self.assertEqual(result, '30eda1491ff3ec8b20489ac38af76dd64ad2a122')
+
     def test_sign_with_key(self):
         """Test sign with key."""
         data = {

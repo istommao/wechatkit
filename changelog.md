@@ -1,3 +1,8 @@
+# version 0.0.13
+`2016-10-19`
+
+- Add sha1_encrypt function
+
 # version 0.0.12
 `2016-10-18`
 

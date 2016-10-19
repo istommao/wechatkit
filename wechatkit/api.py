@@ -1,11 +1,17 @@
 """Wechatkit api."""
 from .basic import WechatBasicAPI
 from .user import WechatUserAPI
+from .utils import SignUtil
 from .exceptions import WechatException
 
 
 class WechatAPI(object):
     """WechatAPI."""
+
+    @staticmethod
+    def sha1_encrypt(token, timestamp, nonce):
+        """Sha1 encrypt."""
+        return SignUtil.sha1_encrypt(token, timestamp, nonce)
 
     @staticmethod
     def _check_exception(result, raise_exception=False):
