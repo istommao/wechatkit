@@ -210,6 +210,22 @@ class WechatAPITest(TestCase):
         self.assertIn('errmsg', result)
 
     @patch('wechatkit.utils.RequestUtil.get')
+    def test_refresh_web_token(self, mock_data):
+        """Test get web access token success."""
+        refresh_token = 'refresh_token'
+        mock_data.return_value = {
+            "access_token": "ACCESS_TOKEN",
+            "expires_in": 7200,
+            "refresh_token": "REFRESH_TOKEN",
+            "openid": "OPENID",
+            "scope": "SCOPE"
+        }
+        result = WechatAPI.refresh_web_access_token(
+            self.appid, refresh_token
+        )
+        self.assertEqual(result.get('access_token'), 'ACCESS_TOKEN')
+
+    @patch('wechatkit.utils.RequestUtil.get')
     def test_get_web_token(self, mock_data):
         """Test get web access token success."""
         mock_data.return_value = {

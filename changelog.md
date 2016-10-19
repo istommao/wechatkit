@@ -1,3 +1,9 @@
+# version 0.0.14
+`2016-10-19`
+
+- Add get web user info function
+- Add refresh web access token function
+
 # version 0.0.13
 `2016-10-19`
 

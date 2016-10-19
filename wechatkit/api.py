@@ -33,6 +33,13 @@ class WechatAPI(object):
         return result
 
     @staticmethod
+    def refresh_web_access_token(appid, refresh_token, raise_exception=False):
+        """refresh web access token."""
+        result = WechatBasicAPI.refresh_web_access_token(appid, refresh_token)
+        WechatAPI._check_exception(result, raise_exception=raise_exception)
+        return result
+
+    @staticmethod
     def get_access_token(appid, appsecret, raise_exception=False):
         """Get access token."""
         result = WechatBasicAPI.get_access_token(appid, appsecret)

@@ -1,7 +1,6 @@
 """wechatkit user"""
 from . import consts
 from .utils import RequestUtil
-from .exceptions import WechatException
 
 
 class WechatUserAPI(object):
@@ -12,13 +11,8 @@ class WechatUserAPI(object):
         """Get web user info."""
         url = consts.WECHAT_WEB_USER_INFO_URL.format(
             access_token=access_token, openid=openid, lang='zh_CN')
-        result = RequestUtil.get(url)
 
-        if result.get('errmsg'):
-            errmsg = RequestUtil.get_retcode_msg(result.get('errcode'))
-            result['errmsg'] = errmsg
-
-        return result
+        return RequestUtil.get_result(url)
 
     @staticmethod
     def get_user_info(access_token, openid):
@@ -26,13 +20,7 @@ class WechatUserAPI(object):
         url = consts.WECHAT_USER_INFO_URL.format(access_token=access_token,
                                                  openid=openid, lang='zh_CN')
 
-        result = RequestUtil.get(url)
-
-        if result.get('errmsg'):
-            errmsg = RequestUtil.get_retcode_msg(result.get('errcode'))
-            result['errmsg'] = errmsg
-
-        return result
+        return RequestUtil.get_result(url)
 
     @staticmethod
     def get_user_list(access_token, next_openid=None):
@@ -42,10 +30,4 @@ class WechatUserAPI(object):
         if next_openid:
             url = '{}&next_openid={}'.format(url, next_openid)
 
-        result = RequestUtil.get(url)
-
-        if result.get('errmsg'):
-            errmsg = RequestUtil.get_retcode_msg(result.get('errcode'))
-            result['errmsg'] = errmsg
-
-        return result
+        return RequestUtil.get_result(url)

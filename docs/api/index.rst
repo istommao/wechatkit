@@ -44,3 +44,9 @@ wechatkit接口
 
     from wechatkit import WechatAPI
     WechatAPI.sha1_encrypt(token, timestamp, nonce)
+
+* 刷新 web access token
+.. code-block:: python
+
+    from wechatkit import WechatAPI
+    WechatAPI.refresh_web_access_token(appid, refresh_token)

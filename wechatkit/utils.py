@@ -12,6 +12,17 @@ from .exceptions import WechatException, WechatSignException
 class RequestUtil(object):
     """Wechat api request util."""
 
+    @classmethod
+    def get_result(cls, url):
+        """Get result."""
+        result = cls.get(url)
+
+        if result.get('errmsg'):
+            errmsg = cls.get_retcode_msg(result.get('errcode'))
+            result['errmsg'] = errmsg
+
+        return result
+
     @staticmethod
     def get(url):
         """Get method."""

@@ -33,6 +33,12 @@ WECHAT_WEB_USER_INFO_URL = urljoin(
     'sns/userinfo?access_token={access_token}&openid={openid}&lang={lang}'
 )
 
+WECHAT_REFRESH_TOKEN_URL = urljoin(
+    WECHAT_BASE_URL,
+    ('sns/oauth2/refresh_token?appid={appid}&grant_type=refresh_token&'
+     'refresh_token={refresh_token}')
+)
+
 RETCODE_DICT = {
     '-1': '系统繁忙，此时请开发者稍候再试',
     '0': '请求成功',
