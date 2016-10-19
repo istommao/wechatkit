@@ -29,6 +29,49 @@ class WechatAPITest(TestCase):
         result = WechatAPI.get_user_info(access_token, openid)
         self.assertIn('errmsg', result)
 
+    def test_get_web_user_info_failure(self):
+        """Test get user info failure"""
+
+        access_token, openid = 'access_token', 'openid'
+        result = WechatAPI.get_web_user_info(access_token, openid)
+        self.assertIn('errmsg', result)
+
+    @patch('wechatkit.utils.RequestUtil.get')
+    def test_get_web_user_info(self, mock_data):
+        """Test get user info failure"""
+        access_token, openid = 'access_token', 'openid'
+
+        payload = {
+            'openid': openid,
+            'nickname': '昵称',
+            'sex': '1',
+            'province': 'PROVINCE',
+            'city': 'CITY',
+            'country':'COUNTRY',
+            'headimgurl': 'http://wx.qlogo.cn/mmopen/asf/46',
+            'privilege':[
+                'PRIVILEGE1'
+                'PRIVILEGE2'
+            ],
+            'unionid': 'o6_bmasdasdsad6_2sgVt7hMZOPfL'
+        }
+
+        mock_data.return_value = payload
+
+        result = WechatAPI.get_web_user_info(access_token, openid)
+
+        self.assertEqual(result['openid'], openid)
+        self.assertEqual(result['nickname'], payload['nickname'])
+        self.assertEqual(result['sex'], payload['sex'])
+        self.assertEqual(result['province'], payload['province'])
+        self.assertEqual(result['city'], payload['city'])
+        self.assertEqual(result['nickname'], payload['nickname'])
+        self.assertEqual(result['country'], payload['country'])
+        self.assertEqual(result['headimgurl'], payload['headimgurl'])
+        self.assertEqual(result['headimgurl'], payload['headimgurl'])
+        self.assertEqual(result['privilege'], payload['privilege'])
+        self.assertEqual(result['unionid'], payload['unionid'])
+
     @patch('wechatkit.utils.RequestUtil.get')
     def test_get_user_info(self, mock_data):
         """Test get user basic info."""

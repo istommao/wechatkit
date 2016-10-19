@@ -28,6 +28,11 @@ WECHAT_USER_LIST_URL = urljoin(WECHAT_BASE_URL,
 WECHAT_WEB_AUTH_ACCESS_TOKEN_URI = urljoin(WECHAT_BASE_URL,
                                            'sns/oauth2/access_token?')
 
+WECHAT_WEB_USER_INFO_URL = urljoin(
+    WECHAT_BASE_URL,
+    'sns/userinfo?access_token={access_token}&openid={openid}&lang={lang}'
+)
+
 RETCODE_DICT = {
     '-1': '系统繁忙，此时请开发者稍候再试',
     '0': '请求成功',

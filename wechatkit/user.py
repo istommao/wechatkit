@@ -8,7 +8,20 @@ class WechatUserAPI(object):
     """Wechat user api."""
 
     @staticmethod
-    def get_user_basic_info(access_token, openid):
+    def get_web_user_info(access_token, openid):
+        """Get web user info."""
+        url = consts.WECHAT_WEB_USER_INFO_URL.format(
+            access_token=access_token, openid=openid, lang='zh_CN')
+        result = RequestUtil.get(url)
+
+        if result.get('errmsg'):
+            errmsg = RequestUtil.get_retcode_msg(result.get('errcode'))
+            result['errmsg'] = errmsg
+
+        return result
+
+    @staticmethod
+    def get_user_info(access_token, openid):
         """Get user basic info."""
         url = consts.WECHAT_USER_INFO_URL.format(access_token=access_token,
                                                  openid=openid, lang='zh_CN')

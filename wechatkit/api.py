@@ -43,7 +43,14 @@ class WechatAPI(object):
     @staticmethod
     def get_user_info(access_token, openid, raise_exception=False):
         """Get user info."""
-        result = WechatUserAPI.get_user_basic_info(access_token, openid)
+        result = WechatUserAPI.get_user_info(access_token, openid)
+        WechatAPI._check_exception(result, raise_exception=raise_exception)
+        return result
+
+    @staticmethod
+    def get_web_user_info(access_token, openid, raise_exception=False):
+        """Get web user info."""
+        result = WechatUserAPI.get_web_user_info(access_token, openid)
         WechatAPI._check_exception(result, raise_exception=raise_exception)
         return result
 
