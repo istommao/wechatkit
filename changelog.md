@@ -1,3 +1,9 @@
+# version 0.0.15
+`2016-10-24`
+
+- Modify wechatkit base exception name
+- Add wechat create_order api
+
 # version 0.0.14
 `2016-10-19`
 

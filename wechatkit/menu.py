@@ -1,7 +1,7 @@
 """Wechat custom Menu module."""
 
 from .utils import RequestUtil
-from .exceptions import WechatException
+from .exceptions import WechatKitException
 
 
 class MenuUtil(object):
@@ -85,7 +85,7 @@ class AbstractButton(object):
 
             if hasattr(self, key):
                 if not value:
-                    raise WechatException('Not empty for `{}`'.format(key))
+                    raise WechatKitException('Not empty for `{}`'.format(key))
                 setattr(self, key, value)
 
             if key == SubButton.TYPE and hasattr(self, 'buttons'):
@@ -124,7 +124,7 @@ class MenuButton(AbstractButton):
         :button AbstractButton: Sub button.
         """
         if len(self.buttons) >= 3:
-            raise WechatException('Level menu must not more than 3')
+            raise WechatKitException('Level menu must not more than 3')
 
         self.buttons.append(button)
 
@@ -133,7 +133,7 @@ class MenuButton(AbstractButton):
         :index int: sub button index.
         """
         if index >= len(self.buttons):
-            raise WechatException('Sub button not exists')
+            raise WechatKitException('Sub button not exists')
 
         return self.buttons.pop(index)
 
@@ -152,7 +152,7 @@ class SubButton(AbstractButton):
         :button AbstractButton: Sub button.
         """
         if len(self.buttons) >= 5:
-            raise WechatException('Secondary submenu must not more than 5')
+            raise WechatKitException('Secondary submenu must not more than 5')
 
         self.buttons.append(button)
 
@@ -161,7 +161,7 @@ class SubButton(AbstractButton):
         :index int: sub button index.
         """
         if index >= len(self.buttons):
-            raise WechatException('Sub button not exists')
+            raise WechatKitException('Sub button not exists')
 
         return self.buttons.pop(index)
 

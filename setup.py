@@ -8,7 +8,7 @@ INSTALL_REQUIRES = [
     'xmltodict>=0.10.2'
 ]
 
-VERSION = '0.0.14'
+VERSION = '0.0.15'
 
 LONG_DESCRIPTION = 'wechatkit is a common wechat api component.'
 

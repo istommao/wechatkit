@@ -2,11 +2,38 @@
 from .basic import WechatBasicAPI
 from .user import WechatUserAPI
 from .utils import SignUtil
-from .exceptions import WechatException
+from .payment import WechatPay
+from .exceptions import WechatKitException
 
 
 class WechatAPI(object):
     """WechatAPI."""
+
+    @staticmethod
+    def create_order(appid, mch_id, key, openid=None, **dataset):
+        """wechat pay."""
+        if not openid:
+            raise WechatKitException('参数 openid 不能为空!')
+
+        payment = WechatPay(appid, mch_id, key)
+
+        try:
+            payload = {
+                'title': dataset['title'],
+                'order_uid': dataset['order_uid'],
+                'total': dataset['total'],
+                'ip': dataset['ip'],
+                'trade_type': dataset['trade_type'],
+                'notify_url': dataset['notify_url'],
+            }
+            if 'detail' in dataset:
+                payload['detail'] = dataset['detail']
+
+        except KeyError as error:
+            raise WechatKitException('参数{}错误!'.format(error))
+
+        result = payment.create_order(openid, **payload)
+        return result
 
     @staticmethod
     def sha1_encrypt(token, timestamp, nonce):
@@ -16,7 +43,7 @@ class WechatAPI(object):
     @staticmethod
     def _check_exception(result, raise_exception=False):
         if raise_exception and 'errmsg' in result:
-            raise WechatException(result['errmsg'])
+            raise WechatKitException(result['errmsg'])
 
     @staticmethod
     def get_callbackip(access_token, raise_exception=False):

@@ -3,7 +3,7 @@
 from unittest import TestCase
 from unittest.mock import patch
 
-from wechatkit.exceptions import WechatException
+from wechatkit.exceptions import WechatKitException
 from wechatkit.payment import WechatPay
 
 
@@ -12,7 +12,7 @@ class WechatPayTest(TestCase):
 
     def setUp(self):
         """Init setup."""
-        self.pay = WechatPay('appid', 'mck_id', 'key')
+        self.pay = WechatPay('appid', 'mch_id', 'key')
         self.data = ''
 
     def tearDown(self):
@@ -50,7 +50,7 @@ class WechatPayTest(TestCase):
             'return_msg': 'test', 'return_code': 'FAILURE'
         }
         data = self.get_data()
-        with self.assertRaises(WechatException) as error:
+        with self.assertRaises(WechatKitException) as error:
             self.pay.create_order('openid', **data)
 
         self.assertEqual(error.exception.error_info, 'test')
@@ -59,20 +59,20 @@ class WechatPayTest(TestCase):
         """Test check create order data."""
         data = self.get_data()
         data['title'] = ''
-        with self.assertRaises(WechatException) as error:
+        with self.assertRaises(WechatKitException) as error:
             self.pay.create_order('openid', **data)
 
         self.assertEqual(error.exception.error_info, '订单描述不能为空')
 
         data['title'] = 'title'
-        with self.assertRaises(WechatException) as error:
+        with self.assertRaises(WechatKitException) as error:
             self.pay.create_order(None, **data)
 
         self.assertEqual(error.exception.error_info, '用户标识不能为空')
 
         data['trade_type'] = self.pay.PAYMENT_NATIVE
         data['product_id'] = ''
-        with self.assertRaises(WechatException) as error:
+        with self.assertRaises(WechatKitException) as error:
             self.pay.create_order(None, **data)
 
         self.assertEqual(error.exception.error_info, '商品ID不能为空')

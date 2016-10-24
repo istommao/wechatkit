@@ -2,7 +2,7 @@
 
 import uuid
 
-from .exceptions import WechatException
+from .exceptions import WechatKitException
 from .utils import SignUtil, RequestUtil
 
 
@@ -74,16 +74,16 @@ class WechatPay(object):
                 break
 
         if error_info:
-            raise WechatException(error_info)
+            raise WechatKitException(error_info)
 
         trade_type = kwargs.get('trade_type')
 
         if trade_type == self.PAYMENT_JS:
             if not kwargs.get('openid'):
-                raise WechatException('用户标识不能为空')
+                raise WechatKitException('用户标识不能为空')
         elif trade_type == self.PAYMENT_NATIVE:
             if not kwargs.get('product_id'):
-                raise WechatException('商品ID不能为空')
+                raise WechatKitException('商品ID不能为空')
 
     def send_data(self, uri, **order_data):
         """Send data to server."""
@@ -98,6 +98,6 @@ class WechatPay(object):
         resp = RequestUtil.post_xml(uri, xml, cert)
 
         if resp.get('return_code') != 'SUCCESS':
-            raise WechatException(resp.get('return_msg'))
+            raise WechatKitException(resp.get('return_msg'))
 
         return resp

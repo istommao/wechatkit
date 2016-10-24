@@ -1,8 +1,12 @@
 """wechatkit userapi test."""
+from decimal import Decimal
+
 from unittest import TestCase
 from unittest.mock import patch
 
 from wechatkit.api import WechatAPI
+
+from wechatkit.exceptions import WechatKitException
 
 
 class WechatAPITest(TestCase):
@@ -10,7 +14,91 @@ class WechatAPITest(TestCase):
 
     def setUp(self):
         self.appid = 'appid'
+        self.mch_id = 'mch_id'
+        self.key = 'key'
         self.appsecret = 'appsecret'
+
+
+    @patch('wechatkit.payment.WechatPay.create_order')
+    def test_create_order_failure(self, mock):
+        """Test wechat pay create order."""
+        mock_data = {
+            'prepay_id': 'prepay_id',
+            'return_code': 'SUCCESS',
+            'return_msg': 'OK',
+            'appid': self.appid,
+            'mch_id': self.mch_id,
+            'sign': '7921E432F65EB8ED0CE9755F0E86D72F',
+            'result_code': 'SUCCESS',
+            'trade_type': 'JSAPI'
+        }
+        mock.return_value = mock_data
+
+        dataset = {
+            'title': 'title',
+            'order_uid': 'order_uid',
+            'total': Decimal('10.10'),
+            'ip': '127.0.0.1',
+            'trade_type': 'JSAPI',
+            'notify_url': 'title'
+        }
+        with self.assertRaises(WechatKitException) as error:
+            WechatAPI.create_order(self.appid, self.mch_id, self.key,
+                                   openid=None, **dataset)
+
+        self.assertEqual(error.exception.error_info, '参数 openid 不能为空!')
+
+        dataset.pop('title')
+        with self.assertRaises(WechatKitException) as error:
+            WechatAPI.create_order(self.appid, self.mch_id, self.key,
+                                   openid='openid', **dataset)
+
+        self.assertEqual(error.exception.error_info, "参数'title'错误!")
+
+    @patch('wechatkit.payment.WechatPay.create_order')
+    def test_create_order(self, mock):
+        """Test wechat pay create order."""
+        mock_data = {
+            'prepay_id': 'prepay_id',
+            'return_code': 'SUCCESS',
+            'return_msg': 'OK',
+            'appid': self.appid,
+            'mch_id': self.mch_id,
+            'sign': '7921E432F65EB8ED0CE9755F0E86D72F',
+            'result_code': 'SUCCESS',
+            'trade_type': 'JSAPI'
+        }
+        mock.return_value = mock_data
+
+        openid = 'openid'
+        dataset = {
+            'title': 'title',
+            'order_uid': 'order_uid',
+            'total': Decimal('10.10'),
+            'ip': '127.0.0.1',
+            'trade_type': 'JSAPI',
+            'notify_url': 'title'
+        }
+        retdata = WechatAPI.create_order(self.appid, self.mch_id, self.key,
+                                         openid=openid, **dataset)
+
+        def assert_func(retdata, mock_data):
+            """assert func."""
+            self.assertEqual(retdata['prepay_id'], mock_data['prepay_id'])
+            self.assertEqual(retdata['return_code'], mock_data['return_code'])
+            self.assertEqual(retdata['return_msg'], mock_data['return_msg'])
+            self.assertEqual(retdata['appid'], mock_data['appid'])
+            self.assertEqual(retdata['mch_id'], mock_data['mch_id'])
+            self.assertEqual(retdata['sign'], mock_data['sign'])
+            self.assertEqual(retdata['result_code'], mock_data['result_code'])
+            self.assertEqual(retdata['trade_type'], mock_data['trade_type'])
+
+        assert_func(retdata, mock_data)
+
+        dataset['detail'] = 'detail'
+        retdata = WechatAPI.create_order(self.appid, self.mch_id, self.key,
+                                         openid=openid, **dataset)
+        assert_func(retdata, mock_data)
 
     def test_sha1_encrypt(self):
         """Test sha1 encrypt."""
@@ -250,3 +338,17 @@ class WechatAPITest(TestCase):
         result = WechatAPI.get_web_access_token(self.appid, self.appsecret,
                                                 'code')
         self.assertIn('errmsg', result)
+
+    @patch('wechatkit.utils.RequestUtil.get')
+    def test_get_token_raise_exception(self, mock_data):
+        """Test get web access token failure."""
+        mock_data.return_value = {
+            "errcode": 40029,
+            "errmsg": "invalid code"
+        }
+
+        with self.assertRaises(WechatKitException) as error:
+            WechatAPI.get_web_access_token(self.appid, self.appsecret, 'code',
+                                           raise_exception=True)
+
+        self.assertEqual(error.exception.error_info, '不合法的oauth_code')

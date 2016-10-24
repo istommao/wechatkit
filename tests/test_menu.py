@@ -3,7 +3,7 @@
 from unittest import TestCase
 from unittest.mock import patch
 
-from wechatkit.exceptions import WechatException
+from wechatkit.exceptions import WechatKitException
 from wechatkit.menu import (
     MenuUtil, MenuButton, ClickButton, ViewButton, SubButton,
     ScanButton, PhotoButton, LocationButton, MediaButton
@@ -101,7 +101,7 @@ class MenuButtonTest(TestCase):
         self.menu.add(click)
         self.menu.add(click)
         self.menu.add(click)
-        with self.assertRaises(WechatException) as error:
+        with self.assertRaises(WechatKitException) as error:
             self.menu.add(click)
 
         self.assertEqual(
@@ -132,7 +132,7 @@ class MenuButtonTest(TestCase):
         sub.add(click)
         sub.add(click)
         sub.add(click)
-        with self.assertRaises(WechatException) as error:
+        with self.assertRaises(WechatKitException) as error:
             sub.add(click)
 
         self.assertEqual(
@@ -213,19 +213,19 @@ class MenuButtonTest(TestCase):
 
     def test_no_value_button(self):
         """ Test no name for sub button. """
-        with self.assertRaises(WechatException) as error:
+        with self.assertRaises(WechatKitException) as error:
             SubButton()
 
         self.assertEqual(error.exception.error_info, 'Not empty for `name`')
 
     def test_remove_menu_button(self):
         """ Test Remove menu button. """
-        with self.assertRaises(WechatException) as error:
+        with self.assertRaises(WechatKitException) as error:
             self.menu.remove(1)
 
         self.assertEqual(error.exception.error_info, 'Sub button not exists')
 
-        with self.assertRaises(WechatException) as error:
+        with self.assertRaises(WechatKitException) as error:
             sub = SubButton('test')
             sub.remove(1)
 

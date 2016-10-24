@@ -6,7 +6,7 @@ import responses
 
 from wechatkit import consts
 from wechatkit.utils import RequestUtil, SignUtil
-from wechatkit.exceptions import WechatException
+from wechatkit.exceptions import WechatKitException
 
 
 class RetcodeToMsgTest(TestCase):
@@ -30,7 +30,7 @@ class RequestUtilTest(TestCase):
 
     def test_get_method_exception(self):
         """Test get method with exception."""
-        with self.assertRaises(WechatException):
+        with self.assertRaises(WechatKitException):
             RequestUtil.get('')
 
     def test_post_method(self):

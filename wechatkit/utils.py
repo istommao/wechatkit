@@ -6,7 +6,7 @@ import requests
 from xmltodict import parse
 
 from . import consts
-from .exceptions import WechatException, WechatSignException
+from .exceptions import WechatKitException, WechatSignException
 
 
 class RequestUtil(object):
@@ -31,7 +31,7 @@ class RequestUtil(object):
             resp.encoding = 'utf-8'
             retdata = resp.json()
         except Exception as error:
-            raise WechatException(''.join(error.args))
+            raise WechatKitException(''.join(error.args))
         else:
             return retdata
 
