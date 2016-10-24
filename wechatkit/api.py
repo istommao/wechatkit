@@ -10,6 +10,11 @@ class WechatAPI(object):
     """WechatAPI."""
 
     @staticmethod
+    def signature(data, key=None):
+        """wechat api signature."""
+        return SignUtil.sign(data, key=key)
+
+    @staticmethod
     def create_order(appid, mch_id, key, openid=None, **dataset):
         """wechat pay."""
         if not openid:

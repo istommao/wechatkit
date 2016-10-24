@@ -1,3 +1,8 @@
+# version 0.0.16
+`2016-10-24`
+
+- Add signature function for WechatAPI
+
 # version 0.0.15
 `2016-10-24`
 

@@ -18,6 +18,16 @@ class WechatAPITest(TestCase):
         self.key = 'key'
         self.appsecret = 'appsecret'
 
+    @patch('wechatkit.utils.SignUtil.sign')
+    def test_signature(self, mock):
+        """Test signature."""
+        return_value = 'signature data'
+        mock.return_value = return_value
+
+        data, key = 'data', 'key'
+        result = WechatAPI.signature(data, key=key)
+
+        self.assertEqual(result, return_value)
 
     @patch('wechatkit.payment.WechatPay.create_order')
     def test_create_order_failure(self, mock):
