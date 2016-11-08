@@ -10,6 +10,11 @@ class WechatAPI(object):
     """WechatAPI."""
 
     @staticmethod
+    def sha1(source):
+        """Sha1."""
+        return SignUtil.sha1(source)
+
+    @staticmethod
     def signature(data, key=None):
         """wechat api signature."""
         return SignUtil.sign(data, key=key)
@@ -19,7 +24,7 @@ class WechatAPI(object):
         """
         Get jsapi ticket.
         :Params:
-            :token str: wechat base access token
+            :token str: base access token
         """
         result = WechatBasicAPI.get_jsapi_ticket(token)
         WechatAPI._check_exception(result, raise_exception=raise_exception)

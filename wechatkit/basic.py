@@ -42,7 +42,7 @@ class WechatBasicAPI(object):
         """
         Get jsapi ticket.
         :Params:
-            :token str: wechat base access token
+            :token str: base access token
         """
         url = ('https://api.weixin.qq.com/cgi-bin/ticket/getticket'
                '?access_token={}&type=jsapi').format(token)

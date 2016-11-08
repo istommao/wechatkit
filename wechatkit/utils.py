@@ -85,6 +85,23 @@ class RequestUtil(object):
 class SignUtil(object):
     """Sign util."""
 
+    @staticmethod
+    def sha1(source):
+        """sha1."""
+        if not isinstance(source, dict):
+            return None
+
+        keys = sorted(source)
+        result = '&'.join(['{}={}'.format(k, source[k]) for k in keys])
+
+        try:
+            sha = hashlib.sha1()
+            sha.update(result.encode('utf-8'))
+        except Exception as error:
+            raise WechatSignException(error)
+        else:
+            return sha.hexdigest()
+
     @classmethod
     def sha1_encrypt(cls, token, timestamp, nonce, encrypt=''):
         """sha1 encrypt."""

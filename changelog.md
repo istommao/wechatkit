@@ -1,3 +1,8 @@
+# version 0.0.18
+`2016-11-08`
+
+- Add sha1 function for WechatAPI
+
 # version 0.0.17
 `2016-11-08`
 

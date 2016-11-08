@@ -1,4 +1,6 @@
 """wechatkit userapi test."""
+import urllib
+
 from decimal import Decimal
 
 from unittest import TestCase
@@ -17,6 +19,22 @@ class WechatAPIBasicTest(TestCase):
         self.mch_id = 'mch_id'
         self.key = 'key'
         self.appsecret = 'appsecret'
+
+    def test_sha1(self):
+        """Test sha1 encrypt."""
+
+        data = {
+            'jsapi_ticket': 'jsapi_ticket',
+            'noncestr': 'CzrjYPlXpTiEsLqAtHINFbQUfmaWyGck',
+            'timestamp': 1478590015,
+            'url': urllib.parse.unquote('http://www.wechatkit.com/wechat/')
+        }
+
+        signature = '60692914f097850f47696261ea3073c62c94b861'
+
+        result = WechatAPI.sha1(data)
+
+        self.assertEqual(result, signature)
 
     def test_sha1_encrypt(self):
         """Test sha1 encrypt."""
