@@ -27,6 +27,8 @@ WechatAPI.get_callbackip(access_token)
 
 WechatAPI.get_user_info(access_token, openid)
 WechatAPI.get_user_list(access_token, openid)
+
+WechatAPI.get_jsapi_ticket(web_token)
 ```
 
 # ChangeLog

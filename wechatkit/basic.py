@@ -28,12 +28,23 @@ class WechatBasicAPI(object):
 
         return RequestUtil.get_result(url)
 
-
     @staticmethod
     def get_web_access_token(appid, appsecret, code):
         """Get web access toekn differ from base access token."""
         urlfmt = '{}appid={}&secret={}&code={}&grant_type=authorization_code'
         url = urlfmt.format(consts.WECHAT_WEB_AUTH_ACCESS_TOKEN_URI,
                             appid, appsecret, code)
+
+        return RequestUtil.get_result(url)
+
+    @staticmethod
+    def get_jsapi_ticket(token):
+        """
+        Get jsapi ticket.
+        :Params:
+            :token str: wechat base access token
+        """
+        url = ('https://api.weixin.qq.com/cgi-bin/ticket/getticket'
+               '?access_token={}&type=jsapi').format(token)
 
         return RequestUtil.get_result(url)

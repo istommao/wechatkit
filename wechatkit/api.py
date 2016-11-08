@@ -15,6 +15,18 @@ class WechatAPI(object):
         return SignUtil.sign(data, key=key)
 
     @staticmethod
+    def get_jsapi_ticket(token, raise_exception=False):
+        """
+        Get jsapi ticket.
+        :Params:
+            :token str: wechat base access token
+        """
+        result = WechatBasicAPI.get_jsapi_ticket(token)
+        WechatAPI._check_exception(result, raise_exception=raise_exception)
+
+        return result
+
+    @staticmethod
     def create_order(appid, mch_id, key, openid=None, **dataset):
         """wechat pay."""
         if not openid:

@@ -9,14 +9,41 @@ from wechatkit.api import WechatAPI
 from wechatkit.exceptions import WechatKitException
 
 
-class WechatAPITest(TestCase):
-    """Wechat user api test case."""
+class WechatAPIBasicTest(TestCase):
+    """Wechat basic test."""
 
     def setUp(self):
         self.appid = 'appid'
         self.mch_id = 'mch_id'
         self.key = 'key'
         self.appsecret = 'appsecret'
+
+    def test_sha1_encrypt(self):
+        """Test sha1 encrypt."""
+        token = 'test_token'
+        timestamp = '1461142505'
+        nonce = 'sdfklklasdwqieor'
+
+        result = WechatAPI.sha1_encrypt(token, timestamp, nonce)
+
+        self.assertEqual(result, '30eda1491ff3ec8b20489ac38af76dd64ad2a122')
+
+    @patch('wechatkit.utils.RequestUtil.get')
+    def test_get_jsapi_ticket(self, mock):
+        """Test get jsapi ticket."""
+        ticket = ('bxLdikRXVbTPdHSM05e5u5sUoXNKd8-41ZO3MhKoyN5OfkWITDGgnr2fwJ'
+                  '0m9E8NYzWKVZvdVtaUgWvsdshFKA')
+        payload = {
+            "errcode": 0,
+            "errmsg": "ok",
+            "ticket": ticket,
+            "expires_in": 7200
+        }
+        mock.return_value = payload
+
+        token = 'faketoken'
+        retdata = WechatAPI.get_jsapi_ticket(token)
+        self.assertEqual(retdata, payload)
 
     @patch('wechatkit.utils.SignUtil.sign')
     def test_signature(self, mock):
@@ -28,6 +55,16 @@ class WechatAPITest(TestCase):
         result = WechatAPI.signature(data, key=key)
 
         self.assertEqual(result, return_value)
+
+
+class WechatAPITest(TestCase):
+    """Wechat user api test case."""
+
+    def setUp(self):
+        self.appid = 'appid'
+        self.mch_id = 'mch_id'
+        self.key = 'key'
+        self.appsecret = 'appsecret'
 
     @patch('wechatkit.payment.WechatPay.create_order')
     def test_create_order_failure(self, mock):
@@ -109,16 +146,6 @@ class WechatAPITest(TestCase):
         retdata = WechatAPI.create_order(self.appid, self.mch_id, self.key,
                                          openid=openid, **dataset)
         assert_func(retdata, mock_data)
-
-    def test_sha1_encrypt(self):
-        """Test sha1 encrypt."""
-        token = 'test_token'
-        timestamp = '1461142505'
-        nonce = 'sdfklklasdwqieor'
-
-        result = WechatAPI.sha1_encrypt(token, timestamp, nonce)
-
-        self.assertEqual(result, '30eda1491ff3ec8b20489ac38af76dd64ad2a122')
 
     def test_get_user_info_failure(self):
         """Test get user info failure"""
