@@ -1,3 +1,8 @@
+# version 0.0.19
+`2016-11-12`
+
+- Add `requrl` field when `errmsg` in RequestUtil.get_result return
+
 # version 0.0.18
 `2016-11-08`
 

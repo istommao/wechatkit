@@ -171,6 +171,7 @@ class WechatAPITest(TestCase):
         access_token, openid = 'access_token', 'openid'
         result = WechatAPI.get_user_info(access_token, openid)
         self.assertIn('errmsg', result)
+        self.assertIn('requrl', result)
 
     def test_get_web_user_info_failure(self):
         """Test get user info failure"""
@@ -178,6 +179,7 @@ class WechatAPITest(TestCase):
         access_token, openid = 'access_token', 'openid'
         result = WechatAPI.get_web_user_info(access_token, openid)
         self.assertIn('errmsg', result)
+        self.assertIn('requrl', result)
 
     @patch('wechatkit.utils.RequestUtil.get')
     def test_get_web_user_info(self, mock_data):
@@ -318,6 +320,7 @@ class WechatAPITest(TestCase):
         access_token = 'access_token'
         result = WechatAPI.get_user_list(access_token)
         self.assertIn('errmsg', result)
+        self.assertIn('requrl', result)
 
     @patch('wechatkit.utils.RequestUtil.get')
     def test_get_access_token_success(self, mock_data):
@@ -334,6 +337,7 @@ class WechatAPITest(TestCase):
         """Test."""
         result = WechatAPI.get_access_token(self.appid, self.appsecret)
         self.assertIn('errmsg', result)
+        self.assertIn('requrl', result)
 
     @patch('wechatkit.utils.RequestUtil.get')
     def test_get_callbackip(self, mock_data):
@@ -351,6 +355,7 @@ class WechatAPITest(TestCase):
         access_token = 'access_token'
         result = WechatAPI.get_callbackip(access_token)
         self.assertIn('errmsg', result)
+        self.assertIn('requrl', result)
 
     @patch('wechatkit.utils.RequestUtil.get')
     def test_refresh_web_token(self, mock_data):
@@ -388,18 +393,21 @@ class WechatAPITest(TestCase):
         """Test get web access token failure."""
         mock_data.return_value = {
             "errcode": 40029,
-            "errmsg": "invalid code"
+            "errmsg": "invalid code",
+            "requrl": 'requrl'
         }
         result = WechatAPI.get_web_access_token(self.appid, self.appsecret,
                                                 'code')
         self.assertIn('errmsg', result)
+        self.assertIn('requrl', result)
 
     @patch('wechatkit.utils.RequestUtil.get')
     def test_get_token_raise_exception(self, mock_data):
         """Test get web access token failure."""
         mock_data.return_value = {
             "errcode": 40029,
-            "errmsg": "invalid code"
+            "errmsg": "invalid code",
+            "requrl": 'requrl'
         }
 
         with self.assertRaises(WechatKitException) as error:

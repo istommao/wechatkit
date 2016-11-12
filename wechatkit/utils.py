@@ -20,6 +20,7 @@ class RequestUtil(object):
         if result.get('errmsg'):
             errmsg = cls.get_retcode_msg(result.get('errcode'))
             result['errmsg'] = errmsg
+            result['requrl'] = url
 
         return result
 
