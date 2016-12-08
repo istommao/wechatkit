@@ -10,6 +10,8 @@ class WechatPay(object):
     """Wechat pay class."""
 
     WECHAT_ORDER_URI = 'https://api.mch.weixin.qq.com/pay/unifiedorder'
+    CLOSE_ORDER_URL = 'https://api.mch.weixin.qq.com/pay/closeorder'
+
     PAYMENT_JS = 'JSAPI'
     PAYMENT_NATIVE = 'NATIVE'
     PAYMENT_APP = 'APP'
@@ -27,6 +29,16 @@ class WechatPay(object):
         self.appid = appid
         self.mch_id = mch_id
         self.key = key
+
+    def close_order(self, **kwargs):
+        """close order."""
+        order_data = {
+            'appid': self.appid,
+            'mch_id': self.mch_id,
+            'out_trade_no': kwargs.get('order_uid'),
+            'nonce_str': uuid.uuid4().hex,
+        }
+        return self.send_data(self.CLOSE_ORDER_URL, **order_data)
 
     def create_order(self, openid, **kwargs):
         """Create order with Official Accounts.

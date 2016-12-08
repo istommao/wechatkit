@@ -1,3 +1,9 @@
+# version 0.0.20
+`2016-12-08`
+
+- Add close order function
+
+
 # version 0.0.19
 `2016-11-12`
 

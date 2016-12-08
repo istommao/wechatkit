@@ -32,6 +32,13 @@ class WechatAPI(object):
         return result
 
     @staticmethod
+    def close_order(appid, mch_id, key, **dataset):
+        """wechat close order."""
+
+        payment = WechatPay(appid, mch_id, key)
+        return payment.close_order(**dataset)
+
+    @staticmethod
     def create_order(appid, mch_id, key, openid=None, **dataset):
         """wechat pay."""
         if not openid:

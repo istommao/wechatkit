@@ -12,7 +12,8 @@ class WechatPayTest(TestCase):
 
     def setUp(self):
         """Init setup."""
-        self.pay = WechatPay('appid', 'mch_id', 'key')
+        self.appid = 'appid'
+        self.pay = WechatPay(self.appid, 'mch_id', 'key')
         self.data = ''
 
     def tearDown(self):
@@ -33,6 +34,38 @@ class WechatPayTest(TestCase):
             'product_id': 1
         }
         return self.data
+
+    @patch('wechatkit.utils.RequestUtil.post_xml')
+    def test_close_order(self, mock):
+        """Test close order."""
+        mock_data = {
+            'return_code': 'SUCCESS',
+            'return_msg': 'OK',
+            'appid': self.appid
+        }
+        mock.return_value = mock_data
+        dataset = {
+            'order_uid': '12312321321'
+        }
+        result = self.pay.close_order(**dataset)
+        self.assertEqual(result, mock_data)
+
+    @patch('wechatkit.utils.RequestUtil.post_xml')
+    def test_close_order_failure(self, mock):
+        """Test close order."""
+        mock_data = {
+            'return_code': 'FAIL',
+            'return_msg': '签名失败'
+        }
+        mock.return_value = mock_data
+
+        dataset = {
+            'order_uid': '12312321321'
+        }
+        with self.assertRaises(WechatKitException) as error:
+            self.pay.close_order(**dataset)
+
+        self.assertEqual(error.exception.error_info, '签名失败')
 
     @patch('wechatkit.utils.RequestUtil.post_xml')
     def test_create_order(self, mock_data):
