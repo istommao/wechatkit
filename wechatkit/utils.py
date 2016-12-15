@@ -3,7 +3,7 @@
 import hashlib
 import requests
 
-from xmltodict import parse
+from xmltodict import parse, expat
 
 from . import consts
 from .exceptions import WechatKitException, WechatSignException
@@ -66,7 +66,12 @@ class RequestUtil(object):
         """Post data is xml."""
         result = requests.post(url, data=data.encode(), cert=cert)
         result.encoding = 'utf-8'
-        result = dict(parse(result.text).get('xml'))
+
+        try:
+            result = dict(parse(result.text).get('xml'))
+        except expat.ExpatError:
+            result = result.text
+
         return result
 
     @staticmethod

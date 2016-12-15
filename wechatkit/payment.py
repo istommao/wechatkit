@@ -9,8 +9,9 @@ from .utils import SignUtil, RequestUtil
 class WechatPay(object):
     """Wechat pay class."""
 
-    WECHAT_ORDER_URI = 'https://api.mch.weixin.qq.com/pay/unifiedorder'
+    UNIFIED_ORDER_URL = 'https://api.mch.weixin.qq.com/pay/unifiedorder'
     CLOSE_ORDER_URL = 'https://api.mch.weixin.qq.com/pay/closeorder'
+    DOWNLOAD_BILL_URL = 'https://api.mch.weixin.qq.com/pay/downloadbill'
 
     PAYMENT_JS = 'JSAPI'
     PAYMENT_NATIVE = 'NATIVE'
@@ -64,18 +65,13 @@ class WechatPay(object):
             'spbill_create_ip': kwargs.get('ip'),
             'trade_type': kwargs.get('trade_type')
         }
-        if 'detail' in kwargs:
-            order_data['detail'] = kwargs.get('detail')
-        if 'time_expire' in kwargs:
-            order_data['time_expire'] = kwargs.get('time_expire')
-        if 'time_start' in kwargs:
-            order_data['time_start'] = kwargs.get('time_start')
-        if 'openid' in kwargs:
-            order_data['openid'] = kwargs.get('openid')
-        if 'product_id' in kwargs:
-            order_data['product_id'] = kwargs.get('product_id')
+        fields = ('detail', 'time_expire', 'time_start', 'openid',
+                  'product_id')
+        for field in fields:
+            if field in kwargs:
+                order_data[field] = kwargs[field]
 
-        return self.send_data(self.WECHAT_ORDER_URI, **order_data)
+        return self.send_data(self.UNIFIED_ORDER_URL, **order_data)
 
     def _check_create_order(self, **kwargs):
         """Check create order data with required."""
@@ -109,7 +105,29 @@ class WechatPay(object):
         xml = RequestUtil.generate_xml(order_data)
         resp = RequestUtil.post_xml(uri, xml, cert)
 
-        if resp.get('return_code') != 'SUCCESS':
-            raise WechatKitException(resp.get('return_msg'))
+        if isinstance(resp, dict):
+            if resp.get('return_code') != 'SUCCESS':
+                raise WechatKitException(resp.get('return_msg'))
 
         return resp
+
+    def download_bill(self, **kwargs):
+        """Download bill."""
+
+        try:
+            dataset = {
+                'appid': self.appid,
+                'mch_id': self.mch_id,
+                'nonce_str': uuid.uuid4().hex,
+                'bill_date': kwargs['bill_date'],
+                'bill_type': kwargs.get('bill_type', 'SUCCESS'),
+            }
+            fields = ('device_info', 'tar_type', 'sign_type')
+            for field in fields:
+                if field in kwargs:
+                    dataset[field] = kwargs[field]
+
+        except KeyError as error:
+            raise WechatKitException('请求参数错误，缺少{}'.format(error))
+
+        return self.send_data(self.DOWNLOAD_BILL_URL, **dataset)
