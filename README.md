@@ -10,6 +10,7 @@ wechatkit is a common wechat api component.
 [wechatkit document](http://wechatkit.codingcat.top/)
 
 # Feature Support
+
 - Wechat payment
 - User api
 - OAuth validation
@@ -43,3 +44,4 @@ WechatAPI.get_jsapi_ticket(web_token)
 # License
 
 MIT. See [LICENSE](https://github.com/istommao/wechatkit/blob/master/LICENSE) for more details.
+
