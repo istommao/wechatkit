@@ -1,6 +1,6 @@
-
-# wechatkit
+# wechatkit [github](https://github.com/istommao/wechatkit)
 > wechatkit is a common wechat api component.
+
 
 ## Feature Support
 - wechat payment
