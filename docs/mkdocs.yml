@@ -1,0 +1,9 @@
+site_name: Wechatkit API
+theme_dir: mkdocs_theme/owl
+theme: null
+
+pages:
+  - 介绍: index.md
+  - 基础服务: basic.md
+  - 用户接口: user.md
+  - 网页开发: web.md

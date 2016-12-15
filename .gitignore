@@ -93,3 +93,5 @@ ENV/
 .vscode
 
 .DS_Store
+
+docs/site

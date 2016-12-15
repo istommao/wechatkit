@@ -1,0 +1,191 @@
+body, div, ul, li {
+    padding: 0;
+    margin: 0;
+}
+body {
+  font-family: Helvetica, sans-serif;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+.container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    height: auto;
+}
+.sideMenu {
+    position: relative;
+    width: 200px;
+    color: #B3B3B3;
+    background-color: #2B333E;
+    display: inline-block;
+    height: 100%;
+    vertical-align: top;
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+    overflow: auto;
+}
+.siteName {
+    width: 100%;
+    height: 65px;
+    text-align: center;
+    background-color: #333D49;
+    line-height: 65px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.main {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 200px;
+  background-color: #F1F4F9;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.topBar {
+    width: 100%;
+    height: 65px;
+    border-bottom: 1px solid #E0E0E5;
+    background-color: #fff;
+    line-height: 65px;
+    text-indent: 20px;
+}
+.sideMenu > .menu {
+    width: 100%;
+    height: auto;
+}
+
+.menu li:not(.active) > a:hover {
+  color: white;
+}
+
+.menu a[class="dropmenu"] {
+  width: 100%;
+  display: block;
+  text-indent: 5px;
+  font-size: 16px;
+  height: 40px;
+  line-height: 40px;
+}
+
+.menu a[class="dropmenu"]:hover {
+  background-color: #272822;
+  color: white;
+}
+
+.menu > ul {
+    list-style: none;
+    width: 100%;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.menu li {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    text-indent: 20px;
+    overflow: hidden;
+}
+.menu ul[class~="hidden"] {
+  display: none;
+}
+
+.menu li > a {
+  color: white;
+  display: block;
+  width: 100%;
+  height: 40px;
+}
+.menu li > a:hover {
+  background-color: #222933;
+}
+.menu .active {
+  background: #23241F;
+  color: #F5F7FA;
+  font-size: 16px;
+}
+
+.mainContent {
+  margin: 15px;
+  padding: 0 15px;
+  background: white;
+  border-radius: 4px;
+  overflow-y: auto;
+}
+
+.contentDiv {
+  padding: 0 20px;
+}
+
+.contentDiv ul {
+  list-style-position: initial;
+}
+.contentDiv p>code {
+  border-left: 4px solid #66D9EF;
+  padding-left: 10px;
+}
+
+blockquote {
+  border-left: 4px solid #66D9EF;
+  padding: 0px;
+  margin: 0px;
+  text-indent: 10px;
+}
+.contentDiv h1 {
+  font-size: 28px;
+}
+
+.contentDiv h2, h2[id='_1'] {
+  font-size: 26px;
+}
+.contentDiv h2[id='_2'] {
+  font-size: 24px;
+}
+.contentDiv h2[id='_3'] {
+  font-size: 22px;
+}
+.contentDiv h2[id='_4'] {
+  font-size: 18px;
+}
+
+.mainContent table {
+  width: 100%;
+  margin: 20px 0 18px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.mainContent table td, .mainContent table th {
+    padding: 12px 25px;
+    border: 1px solid #e1e3e5;
+}
+.mainContent table th {
+    background-color: #f5f7fa;
+    color: #000;
+    white-space: nowrap;
+}
+
+thead {
+    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+pre code {
+  border-radius: 4px;
+  overflow-x: auto;
+}

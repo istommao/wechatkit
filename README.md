@@ -1,13 +1,18 @@
 [![Build Status](https://travis-ci.org/istommao/wechatkit.svg?branch=master)](https://travis-ci.org/istommao/wechatkit)
 [![codecov](https://codecov.io/gh/istommao/wechatkit/branch/master/graph/badge.svg)](https://codecov.io/gh/istommao/wechatkit)
 [![PyPI](https://img.shields.io/pypi/v/wechatkit.svg)](https://pypi.python.org/pypi/wechatkit)
-[![Documentation Status](https://readthedocs.org/projects/wechatkit/badge/?version=latest)](http://wechatkit.readthedocs.io/en/latest/?badge=latest)
 
-# wechatkit
+# Introduction
 wechatkit is a common wechat api component.
 
+# Document
+
+[wechatkit document](http://wechatkit.codingcat.top/)
+
 # Feature Support
-- wechat payment
+- Wechat payment
+- User api
+- OAuth validation
 
 # Installation
 
