@@ -1,3 +1,8 @@
+# version 0.1.0
+`2017-1-20`
+
+- Add template message
+
 # version 0.0.20
 `2016-12-08`
 
